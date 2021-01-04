@@ -1,0 +1,19 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update genre</title>
+</head>
+<body>
+<h2>Update genre</h2>
+<form th:method="POST" th:action="@{{id}(id=${genre.getGenreId()})}" th:object="${genre}">
+    <label for="name">Enter new name:</label>
+    <input id="name" type="text" th:field="*{name}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <hr/>
+    <input type="submit" value="Ok"/><br/><br/>
+    <input type="button" value="Cancel" onclick="history.go(-1)"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New book</title>
+</head>
+<body>
+<h2>Add book</h2>
+<form th:method="POST" th:action="@{add}" th:object="${book}">
+    <label for="name">Enter name:</label>
+    <input id="name" type="text" th:field="*{name}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <label for="author">Enter id of author:</label>
+    <input id="author" type="text" th:field="*{authorId}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"></div>
+    <label for="genre">Enter id of genre:</label>
+    <input id="genre" type="text" th:field="*{genreId}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('genreId')}" th:errors="*{genreId}"></div>
+    <label for="publisher">Enter publisher:</label>
+    <input id="publisher" type="radio" value="Moscow" th:field="*{publisher}">Moscow
+    <input id="publisher2" type="radio" value="St.Petersburg" th:field="*{publisher}">St.Petersburg
+    <input id="publisher3" type="radio" value="O`Reilly" th:field="*{publisher}">O`Reilly<br/>
+    <div style="color:red" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></div>
+    <label for="year">Enter year:</label>
+    <input id="year" type="text" th:field="*{year}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
+    <label for="town">Enter town:</label>
+    <input id="town" type="text" th:field="*{town}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></div>
+    <hr/>
+    <input type="submit" value="Add"/><br/><br/>
+</form>
+<input type="button" value="Cancel" onclick="history.go(-1)"/>
+</body>
+</html>

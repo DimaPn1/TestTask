@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Authors</title>
+</head>
+<body>
+<h1>List authors</h1>
+<a href="author/add">Add new author</a><br/><br/><br/>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Patronymic</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="author : ${authors}">
+        <td th:text="${author.getName()}"></td>
+        <td th:text="${author.getLastname()}"></td>
+        <td th:text="${author.getPatronymic()}"></td>
+        <td><a th:href="@{/author/update/{id}(id=${author.getAuthorId()})}" th:text="update"></a></td>
+        <td><a th:href="@{/author/delete/{id}(id=${author.getAuthorId()})}" th:text="delete"></a></td>
+    </tr>
+</table>
+<br/>
+<hr/>
+<input type="button" value="Cancel" onclick="history.go(-1)"/>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Genres</title>
+</head>
+<body>
+<h1>List genre</h1>
+
+<a href="genre/add">Add new genre</a><br/><br/><br/>
+<table>
+    <tr>
+        <th>Name</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr th:each="genre : ${genres}">
+        <td th:text="${genre.getName()}"></td>
+        <td><a th:href="@{/genre/update/{id}(id=${genre.getGenreId()})}" th:text="update"></a></td>
+        <td><a th:href="@{/genre/delete/{id}(id=${genre.getGenreId()})}" th:text="delete"></a></td>
+        <td><a th:href="@{/genre/stat/{id}(id=${genre.getGenreId()})}" th:text="statistics"></a></td>
+    </tr>
+</table>
+<br/>
+<hr/>
+<input type="button" value="Cancel" onclick="history.go(-1)"/>
+</body>
+</html>

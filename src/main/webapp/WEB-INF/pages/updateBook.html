@@ -1,0 +1,34 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New book</title>
+</head>
+<body>
+<h2>Update book</h2>
+<form th:method="POST" th:action="@{{id}(id=${book.getBookId()})}" th:object="${book}">
+    <label for="name">Enter name:</label>
+    <input id="name" type="text" th:field="*{name}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <label for="author">Enter author:</label>
+    <input id="author" type="text" th:field="*{authorId}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('authorId')}" th:errors="*{authorId}"></div>
+    <label for="genre">Enter genre:</label>
+    <input id="genre" type="text" th:field="*{genreId}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('genreId')}" th:errors="*{genreId}"></div>
+    <label for="publisher">Enter publisher:</label>
+    <input id="publisher" type="text" th:field="*{publisher}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}"></div>
+    <label for="year">Enter year:</label>
+    <input id="year" type="text" th:field="*{year}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
+    <label for="town">Enter town:</label>
+    <input id="town" type="text" th:field="*{town}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('town')}" th:errors="*{town}"></div>
+    <hr/>
+    <input type="submit" value="Ok"/><br/><br/>
+    <input type="button" value="Cancel" onclick="history.go(-1)"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New author</title>
+</head>
+<body>
+<h2>Add author</h2>
+
+<form th:method="POST" th:action="@{add}" th:object="${author}">
+    <label for="name">Enter name:</label>
+    <input id="name" type="text" th:field="*{name}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <label for="lastname">Enter lastname:</label>
+    <input id="lastname" type="text" th:field="*{lastname}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+    <label for="patronymic">Enter patronymic:</label>
+    <input id="patronymic" type="text" th:field="*{patronymic}"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}"></div>
+    <hr/>
+    <input type="submit" value="Add"/><br/><br/>
+</form>
+<input type="button" value="Cancel" onclick="history.go(-1)"/>
+</body>
+</html>
