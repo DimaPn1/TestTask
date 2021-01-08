@@ -2,6 +2,7 @@ package net.library.controllers;
 
 import net.library.dao.GenreDAO;
 import net.library.dao.GenreDAOImpl;
+import net.library.models.Book;
 import net.library.models.Genre;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,9 +65,8 @@ public class GenreController {
 
     @GetMapping("/stat/{id}")
     public String genreStat(Model model, @PathVariable("id") Long id){
-        int quantity = genreDAO.bookStatistics(id);
-        model.addAttribute("quantity", quantity);
-        model.addAttribute("genre", genreDAO.readGenreById(id));
+        List<Book> books = genreDAO.bookStatistics(id);
+        model.addAttribute("books", books);
         return "genreStat";
     }
 }

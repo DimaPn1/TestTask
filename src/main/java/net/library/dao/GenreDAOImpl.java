@@ -1,6 +1,7 @@
 package net.library.dao;
 
 import net.library.models.Author;
+import net.library.models.Book;
 import net.library.models.Genre;
 
 import java.sql.*;
@@ -14,7 +15,7 @@ public class GenreDAOImpl implements GenreDAO{
         Connection connection = DataSource.getConnection();
         Genre genre = new Genre();
         try{
-            String sql = "SELECT * FROM genre WHERE genreID = ?";
+            String sql = "SELECT * FROM genre WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, genreId);
             ResultSet result = statement.executeQuery(sql);
@@ -40,7 +41,7 @@ public class GenreDAOImpl implements GenreDAO{
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 Genre genre = new Genre();
-                Long genreId = resultSet.getLong("genreId");
+                Long genreId = resultSet.getLong("id");
                 String name = resultSet.getString("name");
                 genre.setGenreId(genreId);
                 genre.setName(name);
@@ -90,7 +91,7 @@ public class GenreDAOImpl implements GenreDAO{
     public void deleteGenre(Long id) {
         Connection connection = DataSource.getConnection();
         try{
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM genre WHERE genreId = ?;");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM genre WHERE id = ?;");
             statement.setLong(1, id);
             statement.executeUpdate();
             statement.executeUpdate("SHUTDOWN;");
@@ -101,22 +102,38 @@ public class GenreDAOImpl implements GenreDAO{
         }
     }
     @Override
-    public int bookStatistics(Long id){
+    public List<Book> bookStatistics(Long id){
         Connection connection = DataSource.getConnection();
-        int result = 0;
+        List<Book> books = new ArrayList<>();
         try{
-            String sql = "SELECT * FROM book WHERE genreId = ?";
+            String sql = "SELECT * FROM book LEFT JOIN genre ON book.genreId = genre.id;";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setLong(1, id);
             ResultSet res = statement.executeQuery();
             while(res.next()){
-                result++;
+                Book fBook = new Book();
+                Long genreId = res.getLong("genre.id");
+                if(genreId.equals(id)){
+                    Long bookId = res.getLong("book.id");
+                    String name = res.getString("book.name");
+                    Long authorId = res.getLong("book.authorId");
+                    String publisher = res.getString("book.publisher");
+                    int year = res.getInt("book.year");
+                    String town = res.getString("book.town");
+                    fBook.setBookId(bookId);
+                    fBook.setName(name);
+                    fBook.setAuthorId(authorId);
+                    fBook.setGenreId(genreId);
+                    fBook.setPublisher(publisher);
+                    fBook.setYear(year);
+                    fBook.setTown(town);
+                    books.add(fBook);
+                }
             }
             statement.close();
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return result;
+        return books;
     }
 }

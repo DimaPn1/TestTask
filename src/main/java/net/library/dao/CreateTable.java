@@ -25,7 +25,7 @@ public class CreateTable {
     public static void genreTable(){
         Connection connection = DataSource.getConnection();
         String sql = "CREATE TABLE genre" +
-                "(genreId BIGINT IDENTITY PRIMARY KEY ," +
+                "(id BIGINT IDENTITY PRIMARY KEY ," +
                 "name VARCHAR(50));";
         try{
             Statement statement = connection.createStatement();
@@ -51,7 +51,7 @@ public class CreateTable {
     public static void authorTable(){
         Connection connection = DataSource.getConnection();
         String sql = "CREATE TABLE author" +
-                "(authorId BIGINT IDENTITY PRIMARY KEY ," +
+                "(id BIGINT IDENTITY PRIMARY KEY ," +
                 "name VARCHAR(100) NOT NULL ," +
                 "lastname VARCHAR(100) NOT NULL ," +
                 "patronymic VARCHAR(100) NOT NULL);";
@@ -81,10 +81,10 @@ public class CreateTable {
     public static void bookTable(){
         Connection connection = DataSource.getConnection();
         String sql = "CREATE TABLE book" +
-                "(bookId BIGINT IDENTITY PRIMARY KEY ," +
+                "(id BIGINT IDENTITY PRIMARY KEY ," +
                 "name VARCHAR(100) NOT NULL ," +
-                "authorId BIGINT NOT NULL ," +
-                "genreId BIGINT NOT NULL ," +
+                "authorId BIGINT FOREIGN KEY REFERENCES author(id)," +
+                "genreId BIGINT FOREIGN KEY REFERENCES genre(id)," +
                 "publisher VARCHAR(50) NOT NULL ," +
                 "year INT NOT NULL ," +
                 "town VARCHAR(50) NOT NULL);";

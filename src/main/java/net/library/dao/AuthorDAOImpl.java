@@ -14,7 +14,7 @@ public class AuthorDAOImpl implements AuthorDAO{
         Connection connection = DataSource.getConnection();
         Author author = new Author();
         try{
-            String sql = "SELECT * FROM author WHERE authorID = ?";
+            String sql = "SELECT * FROM author WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, authorID);
             ResultSet result = statement.executeQuery(sql);
@@ -42,7 +42,7 @@ public class AuthorDAOImpl implements AuthorDAO{
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 Author author = new Author();
-                Long authorId = resultSet.getLong("authorId");
+                Long authorId = resultSet.getLong("id");
                 String name = resultSet.getString("name");
                 String lastname = resultSet.getString("lastname");
                 String patronymic = resultSet.getString("patronymic");
@@ -83,7 +83,7 @@ public class AuthorDAOImpl implements AuthorDAO{
     public void updateAuthor(Long id, Author author) {
         Connection connection = DataSource.getConnection();
         try{
-            PreparedStatement statement = connection.prepareStatement("UPDATE author SET name = ?, lastname = ?, patronymic = ? WHERE authorId = ?;");
+            PreparedStatement statement = connection.prepareStatement("UPDATE author SET name = ?, lastname = ?, patronymic = ? WHERE id = ?;");
             statement.setString(1, author.getName());
             statement.setString(2, author.getLastname());
             statement.setString(3, author.getPatronymic());
@@ -100,7 +100,7 @@ public class AuthorDAOImpl implements AuthorDAO{
     public void deleteAuthor(Long id) {
         Connection connection = DataSource.getConnection();
         try{
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM author WHERE authorId = ?;");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM author WHERE id = ?;");
             statement.setLong(1, id);
             statement.executeUpdate();
             statement.executeUpdate("SHUTDOWN;");

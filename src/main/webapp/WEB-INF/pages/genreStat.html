@@ -10,12 +10,24 @@
 <h1>Statistics of genre</h1>
 <table>
     <tr>
-        <th>ID</th>
-        <th>Quantity book</th>
+        <th>Name</th>
+        <th>AuthorId</th>
+        <th>GenreId</th>
+        <th>Publisher</th>
+        <th>Year</th>
+        <th>Town</th>
+        <th></th>
+        <th></th>
     </tr>
-    <tr>
-        <td th:text="${id}"></td>
-        <td th:text="${quantity}"></td>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.getName()}"></td>
+        <td th:text="${book.getAuthorId()}"></td>
+        <td th:text="${book.getGenreId()}"></td>
+        <td th:text="${book.getPublisher()}"></td>
+        <td th:text="${book.getYear()}"></td>
+        <td th:text="${book.getTown()}"></td>
+        <td><a th:href="@{/book/update/{id}(id=${book.getBookId()})}" th:text="update"></a></td>
+        <td><a th:href="@{/book/delete/{id}(id=${book.getBookId()})}" th:text="delete"></a></td>
     </tr>
 </table>
 <br/>

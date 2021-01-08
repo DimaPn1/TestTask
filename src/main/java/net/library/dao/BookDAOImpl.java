@@ -12,7 +12,7 @@ public class BookDAOImpl implements BookDAO{
         Connection connection = DataSource.getConnection();
         Book book = new Book();
         try{
-            String sql = "SELECT * FROM book WHERE bookId = ?";
+            String sql = "SELECT * FROM book WHERE id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setLong(1, bookId);
             ResultSet result = statement.executeQuery(sql);
@@ -43,7 +43,7 @@ public class BookDAOImpl implements BookDAO{
             ResultSet resultSet = statement.executeQuery(sql);
             while(resultSet.next()){
                 Book book = new Book();
-                Long bookId = resultSet.getLong("bookId");
+                Long bookId = resultSet.getLong("id");
                 String name = resultSet.getString("name");
                 Long authorId = resultSet.getLong("authorId");
                 Long genreId = resultSet.getLong("genreId");
@@ -94,7 +94,7 @@ public class BookDAOImpl implements BookDAO{
         Connection connection = DataSource.getConnection();
         try{
             PreparedStatement statement = connection.prepareStatement("UPDATE book SET name = ?, " +
-                    "authorId = ?, genreId = ?,publisher = ?,year = ?,town = ? WHERE bookId = ?;");
+                    "authorId = ?, genreId = ?,publisher = ?,year = ?,town = ? WHERE id = ?;");
             statement.setString(1, book.getName());
             statement.setLong(2, book.getAuthorId());
             statement.setLong(3, book.getGenreId());
@@ -114,7 +114,7 @@ public class BookDAOImpl implements BookDAO{
     public void deleteBook(Long id) {
         Connection connection = DataSource.getConnection();
         try{
-            PreparedStatement statement = connection.prepareStatement("DELETE FROM book WHERE bookId = ?;");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM book WHERE id = ?;");
             statement.setLong(1, id);
             statement.executeUpdate();
             statement.executeUpdate("SHUTDOWN;");
